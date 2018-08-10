@@ -9,6 +9,10 @@ from cv_bridge import CvBridge, CvBridgeError
 from std_msgs.msg import UInt8, UInt32
 from std_srvs.srv import Trigger
 
+RIGHT = 1
+LEFT = 2
+CENTER = 3
+
 
 class RealTimeFace():
     def __init__(self):
@@ -42,11 +46,11 @@ class RealTimeFace():
         self.sound_call(20)
 	wid = self.image_org.shape[1] /3
 	if r[0] <= wid:
-            self.pub_led.publish(1)
+            self.pub_led.publish(RIGHT)
         elif wid <= r[0] <= wid*1.7:
-	    self.pub_led.publish(2)
+	    self.pub_led.publish(CENTER)
         else:
-	    self.pub_led.publish(3)
+	    self.pub_led.publish(LEFT)
 	return r, wid
 
     def sound_call(self, timer):
